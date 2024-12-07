@@ -9,7 +9,7 @@ async function loader() {
 
 function Menu() {
   const menu = useLoaderData();
-  console.log(`🚀CHECK > menu:`, menu);
+  // console.log(`🚀CHECK > menu:`, menu);
 
   return (
     <ul>
