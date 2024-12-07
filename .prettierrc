@@ -17,5 +17,8 @@
   "tabWidth": 2,
   "useTabs": false,
   "embeddedLanguageFormatting": "auto",
-  "printWidth": 90
+  "printWidth": 90,
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ]
 }

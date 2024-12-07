@@ -5,6 +5,7 @@ import Order, { loader as orderLoader } from './features/order/Order';
 import AppLayout from './ui/AppLayout';
 import Error from './ui/Error';
 import CreateOrder, { action as createOrderAction } from './features/order/CreateOrder';
+import Home from './ui/Home';
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     errorElement: <Error />,
     children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
       {
         path: '/menu',
         element: <Menu />,
