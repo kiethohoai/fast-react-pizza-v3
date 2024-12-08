@@ -71,7 +71,8 @@ function CreateOrder() {
             id="priority"
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
-            className="h-6 w-6 accent-yellow-500 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2"
+            className="h-6 w-6 accent-yellow-500 focus:outline-none focus:ring focus:ring-yellow-400
+              focus:ring-offset-2"
           />
           <label htmlFor="priority">Want to yo give your order priority?</label>
         </div>

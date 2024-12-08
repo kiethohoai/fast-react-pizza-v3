@@ -13,12 +13,16 @@ function MenuItem({ pizza }) {
       />
       <div className="flex flex-grow flex-col pt-0.5">
         <p className="font-medium">{name}</p>
-        <p className="to-stone-500 text-sm capitalize italic">{ingredients.join(', ')}</p>
+        <p className="to-stone-500 text-sm capitalize italic">
+          {ingredients.join(', ')}
+        </p>
         <div className="mt-auto flex items-center justify-between">
           {!soldOut ? (
             <p className="text-sm">{formatCurrency(unitPrice)}</p>
           ) : (
-            <p className="to-stone-500 text-sm font-medium uppercase">Sold out</p>
+            <p className="to-stone-500 text-sm font-medium uppercase">
+              Sold out
+            </p>
           )}
 
           <Button type="small">Add to cart</Button>

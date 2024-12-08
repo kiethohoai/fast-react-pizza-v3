@@ -22,3 +22,4 @@
 015 Configuring Tailwind Custom Font Family
 016 Styling the Menu
 017 Styling the Cart
+017 Styling the Cart Fix
