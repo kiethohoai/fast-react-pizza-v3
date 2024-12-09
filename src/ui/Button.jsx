@@ -4,7 +4,7 @@ function Button({ children, disabled, to, type = 'primary' }) {
   const base = `inline-block rounded-full bg-yellow-400 font-semibold uppercase tracking-wide
           text-stone-800 transition-colors duration-300 hover:bg-yellow-400/80
           focus:outline-none focus:ring focus:ring-yellow-400/90 focus:ring-offset-2
-          disabled:cursor-not-allowed`;
+          disabled:cursor-not-allowed text-sm`;
 
   const styles = {
     primary: `${base} px-4 py-3 md:px-6 md:py-4`,
