@@ -4,7 +4,9 @@ import Cart from './features/cart/Cart';
 import Order, { loader as orderLoader } from './features/order/Order';
 import AppLayout from './ui/AppLayout';
 import Error from './ui/Error';
-import CreateOrder, { action as createOrderAction } from './features/order/CreateOrder';
+import CreateOrder, {
+  action as createOrderAction,
+} from './features/order/CreateOrder';
 import Home from './ui/Home';
 
 const router = createBrowserRouter([
