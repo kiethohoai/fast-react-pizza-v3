@@ -43,7 +43,7 @@ const cart = fakeCart;
  */
 
 function CreateOrder() {
-  const username = useSelector((state) => state.user.username);
+  // const username = useSelector((state) => state.user.username);
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
   const formErrors = useActionData();
@@ -55,13 +55,21 @@ function CreateOrder() {
   const priorityPrice = withPriority ? Math.ceil(totalCartPrice * 0.2) : 0;
   const totalPrice = totalCartPrice + priorityPrice;
 
+  //User Info
+  const {
+    username,
+    status: addressStatus,
+    position,
+    address,
+    errors: errorsAddress,
+  } = useSelector((state) => state.user);
+  const isLoadingAddress = addressStatus === 'loading';
+
   if (!cart.length) return <EmptyCart />;
 
   return (
     <div className="px-4 py-6">
       <h2 className="text-xl font-semibold mb-8">{`Ready to order? Let's go!`}</h2>
-
-      <button onClick={() => dispatch(fetchAddress())}>Get position</button>
 
       <Form method="POST">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -72,13 +80,20 @@ function CreateOrder() {
             name="customer"
             defaultValue={username}
             required
+            disabled={isLoadingAddress}
           />
         </div>
 
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">Phone number</label>
           <div className="grow">
-            <input className="input w-full" type="tel" name="phone" required />
+            <input
+              className="input w-full"
+              type="tel"
+              name="phone"
+              required
+              disabled={isLoadingAddress}
+            />
             {formErrors?.phone && (
               <p className="text-xs font-bold text-red-500 mt-1 ml-1">
                 {formErrors.phone}
@@ -89,17 +104,37 @@ function CreateOrder() {
 
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">Address</label>
-          <div className="grow">
+          <div className="grow relative">
             <input
               className="input w-full"
               type="text"
               name="address"
               required
+              defaultValue={address}
+              disabled={isLoadingAddress}
             />
+            {addressStatus === 'error' && (
+              <p className="text-xs font-bold text-red-500 mt-1 ml-1 absolute">
+                {errorsAddress}
+              </p>
+            )}
           </div>
+
+          {!position.latitude && !position.longtitude && (
+            <Button
+              type="small"
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(fetchAddress());
+              }}
+              disabled={isLoadingAddress}
+            >
+              Get position
+            </Button>
+          )}
         </div>
 
-        <div className="mb-12 flex items-center gap-3">
+        <div className="mb-12 mt-6 flex items-center gap-3">
           <input
             type="checkbox"
             name="priority"
@@ -116,7 +151,16 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <Button type="primary" disabled={isSubmitting}>
+          <input
+            type="hidden"
+            name="position"
+            value={
+              position.latitude && position.longitude
+                ? `${position.latitude},${position.longitude}`
+                : ''
+            }
+          />
+          <Button type="primary" disabled={isSubmitting || isLoadingAddress}>
             {isSubmitting
               ? 'Placing order...'
               : `Order Now ${formatCurrency(totalPrice)}`}
